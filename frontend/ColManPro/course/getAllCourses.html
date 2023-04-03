@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Courses</title>
+    <link rel="stylesheet" href="../form.css">
+</head>
+<body>
+    <h2>All Courses</h2>
+    <div id="container">
+        
+    </div>
+</body>
+</html>
+
+
+<script type="module">
+    import {appendCourses} from '../components/appendCourse.js'; 
+    import {appendExceptions} from '../components/appendException.js';
+
+        let getAllCourses = async ()=>{
+
+          
+           try{
+            const response = await fetch(`http://localhost:8080/courses`);
+            if(!response.ok){
+                const c = await response.json();
+                throw c;
+            }
+            const data  = await response.json();
+            console.log(data);
+            appendCourses(data);
+           }catch(err){
+            console.log(err);
+            appendExceptions(err);
+           }
+        }
+        
+        getAllCourses();
+    </script>

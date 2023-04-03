@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course-Student</title>
+    <link rel="stylesheet" href="../form.css" />
+  </head>
+  <body>
+    <h2>Add Course To Student</h2>
+    <form>
+      <div>
+        <label for="sid">Student Id : &nbsp;&nbsp;</label>
+        <input type="number" id="sid" name="sid" />
+      </div>
+      <div>
+        <label for="cid">Course Id : &nbsp;&nbsp;</label>
+        <input type="number" id="cid" name="cid" />
+      </div>
+
+      <button>Assign Course</button>
+    </form>
+
+    <div id="container"></div>
+  </body>
+</html>
+
+<script type="module">
+  import { appendStudents } from "../components/append.js";
+  import { appendExceptions } from "../components/appendException.js";
+  import {appendCourses} from '../components/appendCourse.js'; 
+
+  const button = document.querySelector("form>button");
+
+  button.addEventListener("click", (e) => {
+    e.preventDefault();
+    assingCourseToStudent();
+  });
+  const assingCourseToStudent = async () => {
+    const sid = document.querySelector("#sid").value;
+    const cid = document.querySelector("#cid").value;
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/students/${sid}/${cid}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw await response.json();
+      }
+
+      const data = await response.json();
+  
+      appendCourses(data);
+    } catch (err) {
+      console.log(err);
+      appendExceptions(err);
+    }
+  };
+</script>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Course</title>
+    <link rel="stylesheet" href="../form.css">
+</head>
+<body>
+    <h2>Update Course</h2>
+     <form>
+        <div>
+            <label for="cid">Course Id : &nbsp;&nbsp;</label>
+        <input type="number" id="cid" name="cid">
+        </div>
+        <div>
+            <label for="name">CourseName : &nbsp;&nbsp;</label>
+        <input type="text" id="name" name="name">
+        </div>
+        <div>
+            <label for="price">Price :&nbsp;&nbsp; </label>
+            <input type="number" id="price" name="price">
+        </div>
+        <div>
+            <label for="duration">Duration : &nbsp;&nbsp;</label>
+            <input type="text" id="duration" name="duration">
+        </div>
+    
+        <button>Update Course</button>
+     </form>
+
+        <div id="container">
+            
+        </div>
+       
+</body>
+</html>
+
+
+<script type="module">
+     import {appendCourses} from '../components/appendCourse.js'; 
+    import {appendExceptions} from '../components/appendException.js';
+
+    const button = document.querySelector("form>button");
+    
+    button.addEventListener("click",(e)=>{
+      e.preventDefault();
+      updateCourse();
+    });
+    
+    
+    const updateCourse =async ()=>{
+    
+
+            const id = document.querySelector("#cid").value;
+            const n = document.querySelector("#name").value;
+            const d = document.querySelector("#duration").value;
+            const p = document.querySelector("#price").value;
+
+        let payload = { 
+            courseName: n,
+            price:p,
+            duration:d
+          }
+         try{
+        const response =  await fetch(`http://localhost:8080/courses/${id}`,{
+            method:'PUT',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(payload)
+        });
+
+        if(!response.ok){
+                const c = await response.json();
+                throw c;
+            }
+    
+        const data = await response.json();
+        console.log(data);
+        let arr = new Array();
+        arr.push(data);
+        appendStudents(arr);
+    }catch(err){
+        console.log(err);
+        appendExceptions(err);
+    }
+    };
+    
+    
+    </script>

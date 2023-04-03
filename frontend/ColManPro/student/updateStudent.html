@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Student</title>
+    <link rel="stylesheet" href="../form.css">
+</head>
+<body>
+    <h2>Update Student</h2>
+     <form>
+        <div>
+            <label for="sid">Student Id : &nbsp;&nbsp;</label>
+        <input type="number" id="sid" name="sid">
+        </div>
+        <div>
+            <label for="name">Name : &nbsp;&nbsp;</label>
+        <input type="text" id="name" name="name">
+        </div>
+        <div>
+            <label for="email">Email :&nbsp;&nbsp; </label>
+            <input type="email" id="email" name="email">
+        </div>
+        <div>
+            <label for="address">Address : &nbsp;&nbsp;</label>
+            <input type="text" id="address" name="address">
+        </div>
+        <div>
+            <label for="phone">Phone Number :&nbsp;&nbsp; </label>
+            <input type="text" id="phone" name="phone">
+        </div>
+    
+        <button>Update Student</button>
+     </form>
+
+        <div id="container">
+            
+        </div>
+       
+</body>
+</html>
+<script type="module">
+import {appendStudents} from '../components/append.js'; 
+import { appendExceptions } from "../components/appendException.js";
+
+
+const button = document.querySelector("form>button");
+
+button.addEventListener("click",(e)=>{
+  e.preventDefault();
+  updateStudent();
+});
+
+
+const updateStudent =async ()=>{
+
+    const id = document.querySelector("#sid").value;
+    const n = document.querySelector("#name").value;
+    const e = document.querySelector("#email").value;
+    const a = document.querySelector("#address").value;
+    const p = document.querySelector("#phone").value;
+
+
+   const payload = { 
+    name: n,
+    email:e,
+    address:a,
+    phoneNumber:p
+      }
+   try{
+    const response =  await fetch(`http://localhost:8080/students/${id}`,{
+        method:'PATCH',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(payload)
+    });
+    if(!response.ok){
+       throw await response.json();
+    }
+
+    const data = await response.json();
+    console.log(data);
+    let arr = new Array();
+    arr.push(data);
+    appendStudents(arr);
+}catch(err){
+    console.log(err);
+    appendExceptions(err);
+}
+};
+
+
+</script>
