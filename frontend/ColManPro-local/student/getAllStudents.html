@@ -26,11 +26,12 @@ import { appendExceptions } from "../components/appendException.js";
 const loadData =async ()=> {
      
     try{
-    const response = await fetch("http://localhost:8080/students");
+    const response = await fetch("https://localhost:8080/students");
     
     if(!response.ok){
        throw await response.json();
     }
+    console.log("fetching data");
 
     const data =await response.json();
       

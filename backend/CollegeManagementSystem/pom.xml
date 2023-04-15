@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.masai</groupId>
-	<artifactId>CollegeManagementforAjaySir</artifactId>
+	<artifactId>CollegeManagementSystem</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CollegeManagementforAjaySir</name>
+	<name>CollegeManagementSystem</name>
 	<description>College Management System</description>
 	<properties>
 		<java.version>17</java.version>

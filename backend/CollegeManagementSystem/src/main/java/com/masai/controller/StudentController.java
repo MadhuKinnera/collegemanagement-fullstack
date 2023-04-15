@@ -30,6 +30,11 @@ public class StudentController {
 	@Autowired
 	private StudentService sService;
 	
+	@GetMapping("/test")
+	public String test() {
+		return "Hello World..!";
+	}
+	
 	@PostMapping("/students")
 	public ResponseEntity<Student> addStudentHandler(@RequestBody @Valid Student student){
 		return new ResponseEntity<Student>(sService.addStudent(student),HttpStatus.CREATED);
