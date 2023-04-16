@@ -18,7 +18,7 @@ Home Page
 Add Student
 ---
 
-[![cms-addstudent.png](https://i.postimg.cc/fWKJL6GH/cms-addstudent.png)](https://postimg.cc/t7sXvmCP)
+[![cms-addstudent.png](https://i.postimg.cc/qMcyZyjQ/cms-addstudent.png)](https://postimg.cc/dL1hhkMT)
 
 Get All Students
 ---
